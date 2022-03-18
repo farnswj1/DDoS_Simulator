@@ -1,0 +1,62 @@
+# DDoSS Simulator
+This project simulates a DDoSS on a mock server using Docker, Django, MySQL, Redis, and Nginx.
+
+## Setup
+The project uses the following:
+- Python 3.9
+- Django 4.0.3
+- MySQL 8
+- Redis 5
+- Nginx 1.21
+- Docker
+- Docker Compose
+
+For additional information on project specifications, see the 
+```Pipfile``` in the ```api``` directory.
+
+### Environment
+In the ```api/``` directory, create a ```.env``` file
+that contains the following environment variables:
+```
+SECRET_KEY=somerandomstring
+
+DEBUG=False
+ALLOWED_HOSTS=localhost 127.0.0.1
+CORS_ALLOWED_ORIGIN_REGEXES=^https?://(localhost|127\.0\.0\.1)$
+
+DB_ENGINE=django.db.backends.mysql
+DB_NAME=DDoSSimulator
+DB_HOST=mysql
+DB_USER=root
+DB_PASSWORD=password
+DB_PORT=3306
+
+REDIS_URL=redis://redis:6379/1
+```
+The database variables can be changed as desired. However, make sure to update
+the environment variables in ```docker-compose.yml``` as well.
+
+## Building
+The project uses Docker. Ensure Docker and Docker Compose are installed before continuing.
+
+To build, run ```docker-compose build```
+
+## Running
+To run the web API, run ```docker-compose up -d```, then go to 
+http://localhost/api/core/data using your web browser. You should 
+see a list of data. Initially, it will be empty.
+
+## Simulating a DDoSS Attack
+A directory called ```ddoss``` provides a Python script and several
+JSON files that are used to perform a DDoSS attack. The modules needed
+for the script can be found in ```requirements.txt```.
+
+It is advised to set up a virtual environment.
+To do so, ensure that you are in the ```ddoss``` directory. Then
+enter ```python -m venv venv```, then activate the virtual
+environment using ```"./venv/Scripts/activate"``` if you are using 
+Windows, or ```venv/bin/activate``` if you are using MacOS or Linux.
+
+Then, in your virtual environment, run ```pip install -r requirements.txt```
+to install the depedencies needed for the DDoSS script. After that, you can
+run a DDoSS attack using ```python ddoss_attack.py```.

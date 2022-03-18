@@ -1,0 +1,56 @@
+version: "3.2"
+services:
+  mysql:
+    container_name: mysql
+    image: mysql:8
+    restart: always
+    environment:
+      MYSQL_DATABASE: DDoSSimulator
+      MYSQL_ROOT_PASSWORD: password
+    volumes:
+      - mysql_data:/var/lib/mysql
+    logging:
+      options:
+        max-size: "1m"
+  redis:
+    container_name: redis
+    image: redis:5
+    restart: always
+    volumes:
+      - redis_data:/data
+    logging:
+      options:
+        max-size: "1m"
+  api:
+    container_name: api
+    image: api
+    build: api
+    restart: always
+    env_file:
+      - ./api/.env
+    volumes:
+      - api_static:/api/static
+    logging:
+      options:
+        max-size: "1m"
+    depends_on:
+      - mysql
+      - redis
+  nginx:
+    container_name: nginx
+    image: nginx
+    build: nginx
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - api_static:/api/static
+    logging:
+      options:
+        max-size: "1m"
+    depends_on:
+      - api
+volumes:
+  mysql_data:
+  redis_data:
+  api_static:

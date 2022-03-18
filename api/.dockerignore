@@ -1,0 +1,7 @@
+.gitignore
+.dockerignore
+Dockerfile
+__pycache__/
+media/
+static/
+*.db
