@@ -1,11 +1,11 @@
 # DDoS Simulator
-This project simulates a DDoS on a mock server using Docker, Django, MySQL, Redis, and Nginx.
+This project simulates a DDoS on a mock server using Docker, Django, PostgreSQL, Redis, and Nginx.
 
 ## Setup
 The project uses the following:
 - Python 3.9
 - Django 4.0.3
-- MySQL 8
+- PostgreSQL 14
 - Redis 5
 - Nginx 1.21
 - Docker
@@ -24,12 +24,12 @@ DEBUG=False
 ALLOWED_HOSTS=localhost 127.0.0.1
 CORS_ALLOWED_ORIGIN_REGEXES=^https?://(localhost|127\.0\.0\.1)$
 
-DB_ENGINE=django.db.backends.mysql
-DB_NAME=DDoSSimulator
-DB_HOST=mysql
-DB_USER=root
+DB_ENGINE=django.db.backends.postgresql_psycopg2
+DB_NAME=ddos_simulator
+DB_HOST=postgres
+DB_USER=postgres
 DB_PASSWORD=password
-DB_PORT=3306
+DB_PORT=5432
 
 REDIS_URL=redis://redis:6379/1
 ```

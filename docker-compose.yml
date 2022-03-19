@@ -1,14 +1,15 @@
 version: "3.2"
 services:
-  mysql:
-    container_name: mysql
-    image: mysql:8
+  postgres:
+    container_name: postgres
+    image: postgres:14
     restart: always
     environment:
-      MYSQL_DATABASE: DDoSSimulator
-      MYSQL_ROOT_PASSWORD: password
+      POSTGRES_DB: ddos_simulator
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
     volumes:
-      - mysql_data:/var/lib/mysql
+      - postgres_data:/var/lib/postgresql/data
     logging:
       options:
         max-size: "1m"
@@ -34,7 +35,7 @@ services:
       options:
         max-size: "1m"
     depends_on:
-      - mysql
+      - postgres
       - redis
   nginx:
     container_name: nginx
@@ -51,6 +52,6 @@ services:
     depends_on:
       - api
 volumes:
-  mysql_data:
+  postgres_data:
   redis_data:
   api_static:
