@@ -30,7 +30,7 @@ def attack_url():
 
         if URL:
             try:  # If an error occurs, terminate the function
-                data = { 
+                data = {
                     # NOTE: The field names may vary depending on the URL form
                     'username': username,
                     'password': password
