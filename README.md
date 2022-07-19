@@ -6,7 +6,7 @@ The project uses the following:
 - Python 3.9
 - Django 4.0.3
 - PostgreSQL 14
-- Redis 5
+- Redis 7
 - Nginx 1.21
 - Docker
 - Docker Compose

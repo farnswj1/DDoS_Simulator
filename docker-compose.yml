@@ -15,7 +15,7 @@ services:
         max-size: "1m"
   redis:
     container_name: redis
-    image: redis:5
+    image: redis:7
     restart: always
     volumes:
       - redis_data:/data
