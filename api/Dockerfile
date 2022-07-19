@@ -8,8 +8,8 @@ ENV PYTHONUNBUFFERED 1
 WORKDIR /api
 
 # add application and install dependencies
-COPY Pipfile Pipfile.lock ./
 RUN pip install pipenv
+COPY Pipfile Pipfile.lock ./
 RUN pipenv install --system --deploy --ignore-pipfile
 COPY . ./
 
