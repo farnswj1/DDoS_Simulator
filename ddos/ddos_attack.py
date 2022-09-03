@@ -1,4 +1,4 @@
-from httpx import AsyncClient
+from aiohttp import ClientSession
 from multiprocessing import Process, cpu_count
 import uvloop
 import asyncio
@@ -17,36 +17,36 @@ CHARS = string.ascii_letters + string.digits + '!@#$%&'
 
 
 # Send many post requests to the URL
-async def send_data():
-    async with AsyncClient() as client:
-        for _ in range(100):
-            # Randomly generate a fake username and password
-            first_name = random.choice(FIRST_NAMES)
-            last_name = random.choice(LAST_NAMES)
-            extra_digits = ''.join(random.choices(string.digits, k=random.randint(1, 5)))
-            email = random.choice(EMAIL_PROVIDERS)
+async def send_fake_data(session):
+    for _ in range(100):
+        # Randomly generate a fake username and password
+        first_name = random.choice(FIRST_NAMES)
+        last_name = random.choice(LAST_NAMES)
+        extra_digits = ''.join(random.choices(string.digits, k=random.randint(1, 5)))
+        email = random.choice(EMAIL_PROVIDERS)
 
-            username = first_name + last_name + extra_digits + '@' + email
-            password = ''.join(random.choices(CHARS, k=random.randint(8, 20)))
+        username = first_name + last_name + extra_digits + '@' + email
+        password = ''.join(random.choices(CHARS, k=random.randint(8, 20)))
 
-            # Post the fake data to the URL if it has been provided
-            if URL:
-                try:  # If an error occurs, terminate the function
-                    data = {
-                        # NOTE: The field names may vary depending on the URL form
-                        'username': username,
-                        'password': password
-                    }
-                    await client.post(URL, data=data)
-                except:
-                    print(f'Failed to send {username} and password {password} to the URL!')
-                    return
+        # Post the fake data to the URL if it has been provided
+        if URL:
+            try:  # If an error occurs, terminate the function
+                data = {
+                    # NOTE: The field names may vary depending on the URL form
+                    'username': username,
+                    'password': password
+                }
+                await session.post(URL, data=data)
+            except:
+                print(f'Failed to send {username} and password {password} to the URL!')
+                return
 
 
 # Creates many tasks for the event loop
 async def attack_url_async():
-    tasks = [asyncio.create_task(send_data()) for _ in range(100)]
-    await asyncio.gather(*tasks)
+    async with ClientSession() as session:
+        tasks = [asyncio.create_task(send_fake_data(session)) for _ in range(100)]
+        await asyncio.gather(*tasks)
 
 
 # Send many post requests to the URL using asyncio
