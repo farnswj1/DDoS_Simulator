@@ -8,6 +8,10 @@ import json
 import sys
 
 
+# Use the uvloop event loop instead of the one in asyncio
+uvloop.install()
+
+
 # Constants
 URL = 'http://localhost/api/core/data'
 FIRST_NAMES = tuple(first_name.lower() for first_name in json.load(open('first_names.json')))
@@ -56,7 +60,6 @@ def attack_url():
         with asyncio.Runner(loop_factory=uvloop.new_event_loop) as runner:
             runner.run(attack_url_async())
     else:
-        uvloop.install()
         asyncio.run(attack_url_async())
 
 
