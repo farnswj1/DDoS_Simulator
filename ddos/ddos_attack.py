@@ -13,9 +13,15 @@ uvloop.install()
 
 
 # Constants
-URL = 'http://localhost/api/core/data'
-FIRST_NAMES = tuple(first_name.lower() for first_name in json.load(open('first_names.json')))
-LAST_NAMES = tuple(last_name.lower() for last_name in json.load(open('last_names.json')))
+URL = 'http://localhost/api/core/data/'
+
+with (
+    open('first_names.json') as first_names,
+    open('last_names.json') as last_names
+):
+    FIRST_NAMES = tuple(first_name.lower() for first_name in json.load(first_names))
+    LAST_NAMES = tuple(last_name.lower() for last_name in json.load(last_names))
+
 EMAIL_PROVIDERS = ('gmail.com', 'yahoo.com', 'aol.com', 'outlook.com', 'icloud.com')
 CHARS = string.ascii_letters + string.digits + '!@#$%&'
 

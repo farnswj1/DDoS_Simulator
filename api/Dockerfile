@@ -1,11 +1,11 @@
 # base image
-FROM python:3.9
+FROM python:3.11
 
 # set environment variables
 ENV PYTHONUNBUFFERED 1
 
 # set directory
-WORKDIR /api
+WORKDIR /opt/app
 
 # add application and install dependencies
 RUN pip install pipenv

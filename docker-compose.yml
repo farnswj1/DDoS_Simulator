@@ -30,7 +30,7 @@ services:
     env_file:
       - ./api/.env
     volumes:
-      - api_static:/api/static
+      - api_static:/opt/app/static
     logging:
       options:
         max-size: "1m"
@@ -39,13 +39,14 @@ services:
       - redis
   nginx:
     container_name: nginx
-    image: nginx
-    build: nginx
+    image: nginx:1.23-alpine
     restart: always
     ports:
       - "80:80"
+      - "443:443"
     volumes:
-      - api_static:/api/static
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      - api_static:/opt/app/static
     logging:
       options:
         max-size: "1m"

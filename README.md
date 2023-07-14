@@ -3,11 +3,11 @@ This project simulates a DDoS on a mock server using Docker, Django, PostgreSQL,
 
 ## Setup
 The project uses the following:
-- Python 3.9
-- Django 4.0.3
-- PostgreSQL 14
-- Redis 7
-- Nginx 1.21
+- Python 3
+- Django
+- PostgreSQL
+- Redis
+- Nginx
 - Docker
 - Docker Compose
 
@@ -19,10 +19,11 @@ In the ```api/``` directory, create a ```.env``` file
 that contains the following environment variables:
 ```
 SECRET_KEY=somerandomstring
-
 DEBUG=False
+
 ALLOWED_HOSTS=localhost 127.0.0.1
 CORS_ALLOWED_ORIGIN_REGEXES=^https?://(localhost|127\.0\.0\.1)$
+CSRF_TRUSTED_ORIGINS=http://localhost http://127.0.0.1
 
 DB_ENGINE=django.db.backends.postgresql_psycopg2
 DB_NAME=ddos_simulator
@@ -31,7 +32,7 @@ DB_USER=postgres
 DB_PASSWORD=password
 DB_PORT=5432
 
-REDIS_URL=redis://redis:6379/1
+REDIS_URL=redis://redis:6379/0
 ```
 The database variables can be changed as desired. However, make sure to update
 the environment variables in ```docker-compose.yml``` as well.

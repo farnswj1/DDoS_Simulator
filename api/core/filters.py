@@ -3,7 +3,8 @@ from core.models import Data
 
 class DataFilterSet(FilterSet):
     username = CharFilter('username', label='Username', lookup_expr='icontains')
+    password = CharFilter('password', label='Password', lookup_expr='icontains')
 
     class Meta:
         model = Data
-        fields = ('username',)
+        fields = ('username', 'password')
