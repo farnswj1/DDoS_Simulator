@@ -10,6 +10,8 @@ services:
       POSTGRES_PASSWORD: password
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - private
     logging:
       options:
         max-size: "1m"
@@ -19,6 +21,8 @@ services:
     restart: always
     volumes:
       - redis_data:/data
+    networks:
+      - private
     logging:
       options:
         max-size: "1m"
@@ -31,6 +35,9 @@ services:
       - ./api/.env
     volumes:
       - api_static:/opt/app/static
+    networks:
+      - public
+      - private
     logging:
       options:
         max-size: "1m"
@@ -47,6 +54,8 @@ services:
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
       - api_static:/opt/app/static
+    networks:
+      - public
     logging:
       options:
         max-size: "1m"
@@ -56,3 +65,6 @@ volumes:
   postgres_data:
   redis_data:
   api_static:
+networks:
+  public:
+  private:
