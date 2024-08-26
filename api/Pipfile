@@ -8,7 +8,7 @@ django = "==4.2.3"
 djangorestframework = "==3.14.0"
 django-cors-headers = "==4.2.0"
 django-filter = "==23.2"
-psycopg = "==3.1.9"
+psycopg = {version = "==3.1.9", extras = ["binary"]}
 celery = "==5.3.1"
 django-celery-beat = "==2.5.0"
 redis = {version = "==4.6.0", extras = ["hiredis"]}
